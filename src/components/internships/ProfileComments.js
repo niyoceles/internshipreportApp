@@ -61,7 +61,7 @@ class ProfileComments extends Component {
 }
 
 ProfileComments.propTypes = {
-  lvcomments: PropTypes.array.isRequired,
+  // lvcomments: PropTypes.array.isRequired,
 };
 
 export default ProfileComments;

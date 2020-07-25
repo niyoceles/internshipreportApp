@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {ScrollView, StyleSheet} from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 import {
   Container,
@@ -13,14 +13,28 @@ import {
   Spinner,
 } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
-import {connect} from 'react-redux';
-import {logoutUser} from '../../redux/actions';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../redux/actions';
 // import Icon from 'react-native-vector-icons/EvilIcons';
 import Theme from '../../constants/Theme';
-import {DrawerActions} from '@react-navigation/native';
-import NavHeader from '../posts/NavHeader';
+import { DrawerActions } from '@react-navigation/native';
+import NavHeader from '../internships/NavHeader';
 
 class MyProfile extends Component {
+  state = {
+    userInfo: [],
+  };
+  async componentDidMount() {
+    let obj = {};
+    const userInfo = await AsyncStorage.getItem('userInfo');
+    if (userInfo) {
+      obj = JSON.parse(userInfo);
+    }
+    this.setState({
+      userInfo: obj,
+    });
+  }
+
   handleLogout = async () => {
     await this.props.logoutUser();
     await AsyncStorage.removeItem('userIdToken');
@@ -30,20 +44,12 @@ class MyProfile extends Component {
   render() {
     const {
       user: {
-        credentials: {
-          email,
-          names
-        },
+        credentials: { email, names },
         loading,
         authenticated,
       },
     } = this.props;
-
-    if (!loading) {
-      if (!email) {
-        this.props.navigation.navigate('Auth', {screen: 'Login'});
-      }
-    }
+    const { userInfo } = this.state;
 
     let profileMarkup = !loading ? (
       authenticated ? (
@@ -60,22 +66,22 @@ class MyProfile extends Component {
           />
           <Container>
             <ScrollView>
-              <Card style={{elevation: 3}}>
+              <Card style={{ elevation: 3 }}>
                 <CardItem
                   style={{
                     flexDirection: 'column',
                     backgroundColor: Theme.COLORS.SECONDARY,
-                  }}>
-  
-                  <Text style={{color: Theme.COLORS.DEFAULT}}>
-                    your names: {names}
+                  }}
+                >
+                  <Text style={{ color: Theme.COLORS.DEFAULT }}>
+                    your names: {userInfo.names}
                   </Text>
-                  <Text style={{color: Theme.COLORS.DEFAULT}}>
-                    Email: {email}
+                  <Text style={{ color: Theme.COLORS.DEFAULT }}>
+                    Email: {userInfo.email}
                   </Text>
                 </CardItem>
               </Card>
-              <Card style={{elevation: 3}}>
+              <Card style={{ elevation: 3 }}>
                 <CardItem>
                   <Text>About :</Text>
                 </CardItem>
@@ -83,11 +89,12 @@ class MyProfile extends Component {
                   <Text>Bio</Text>
                 </CardItem>
               </Card>
-              <Card style={{elevation: 3}}>
+              <Card style={{ elevation: 3 }}>
                 <Button
                   block
                   onPress={this.handleLogout}
-                  style={{backgroundColor: Theme.COLORS.PRIMARY}}>
+                  style={{ backgroundColor: Theme.COLORS.PRIMARY }}
+                >
                   <Text>Logout</Text>
                 </Button>
               </Card>
@@ -107,7 +114,7 @@ class MyProfile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
 });
 
@@ -116,4 +123,4 @@ MyProfile.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, {logoutUser})(MyProfile);
+export default connect(mapStateToProps, { logoutUser })(MyProfile);

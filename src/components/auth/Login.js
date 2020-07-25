@@ -11,7 +11,6 @@ import {
 
 import { Button, Spinner, Form, Item, Input, Label, Title } from 'native-base';
 import { Font } from 'expo';
-import { Ionicons } from '@expo/vector-icons';
 import Theme from '../../constants/Theme';
 // redux
 import { connect } from 'react-redux';
@@ -49,17 +48,25 @@ class Login extends Component {
       this.setState({ loading: true });
       setInterval(() => {
         this.setState({ loading: false });
-      }, 3000);
-      setTimeout(() => {
-        if (this.props.user.credentials.email) {
-          this.setState({ email: '', password: '' });
-          return this.props.navigation.navigate('Drawer', {
-            screen: 'Home',
-          });
-        } else if (this.state.errors) {
-          Alert.alert('Error', this.state.errors);
-        }
-      }, 2000);
+      }, 4000);
+      if (this.props.user.authenticated) {
+        console.log('jhhhhh', this.props.user);
+        return this.props.navigation.navigate('Drawer', {
+          screen: 'Home',
+        });
+      }
+      // setTimeout(() => {
+      //   console.log('jhhhhh',this.props.user.credentials);
+      //   Alert.alert('success:',this.props.user.credentials );
+      //   if (this.props.user.credentials) {
+      //     this.setState({ email: '', password: '' });
+      //     return this.props.navigation.navigate('Drawer', {
+      //       screen: 'Home',
+      //     });
+      //   } else if (this.state.errors) {
+      //     Alert.alert('Error', this.state.errors);
+      //   }
+      // }, 2000);
     }
   };
 
@@ -117,9 +124,7 @@ class Login extends Component {
           <View style={styles.textAuth2}>
             <Text style={styles.textAuth}>Don't have an account, </Text>
             <TouchableOpacity
-              onPress={() =>
-                this.props.navigation.navigate('Drawer')
-              }
+              onPress={() => this.props.navigation.navigate('Drawer')}
             >
               <Text
                 style={{ fontSize: 14, fontWeight: 'bold', ...styles.textAuth }}

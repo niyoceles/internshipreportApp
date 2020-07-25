@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Thumbnail, Text} from 'native-base';
+import React, { Component } from 'react';
+import { View, Thumbnail, Text } from 'native-base';
 import Theme from '../constants/Theme';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -14,11 +14,11 @@ export class UserInfo extends Component {
       obj = JSON.parse(userInfo);
     }
     this.setState({
-      userInfo: obj.credentials,
+      userInfo: obj,
     });
   }
   render() {
-    const {userInfo} = this.state;
+    const { userInfo } = this.state;
     return (
       <View
         style={{
@@ -26,13 +26,12 @@ export class UserInfo extends Component {
           height: 140,
           alignItems: 'center',
           justifyContent: 'center',
-        }}>
-        <Thumbnail
-          source={{
-            uri: `${userInfo.imageUrl}`,
-          }}
-        />
-        <Text style={{color: 'white', fontSize: 16}}>@{userInfo.username}</Text>
+        }}
+      >
+        <Thumbnail source={require('../assets/user.png')} />
+        <Text style={{ color: 'white', fontSize: 16 }}>{userInfo.names}</Text>
+        <Text style={{ color: 'white', fontSize: 16 }}>#{userInfo.email}</Text>
+        <Text style={{ color: 'white', fontSize: 16 }}>I am {userInfo.email}</Text>
       </View>
     );
   }

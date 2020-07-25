@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -7,10 +7,9 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 
-// import AddPostProfile from '../components/profile/AddPostProfile';
+import AddInternship from '../components/internships/AddInternship';
 import MyProfile from '../components/profile/MyProfile';
 import Tabs from './Tabs';
-import ProfileScreen from './ProfileScreen';
 import UserInfo from '../components/UserInfo';
 
 const Drawer = createDrawerNavigator();
@@ -33,12 +32,14 @@ function CustomDrawerContent(props) {
 export default function DrawerScreen() {
   return (
     <Drawer.Navigator
-      drawerContent={props => (
+      drawerContent={(props) => (
         <CustomDrawerContent {...props} initialRouteName="Home" />
-      )}>
+      )}
+    >
       <Drawer.Screen name="Home" component={Tabs} />
-      <Drawer.Screen name="My Post" component={MyProfile} />
-      <Drawer.Screen name="My Account" component={ProfileScreen} />
+      <Drawer.Screen name="Add Internship" component={AddInternship} />
+      <Drawer.Screen name="My Internship" component={MyProfile} />
+      <Drawer.Screen name="My Account" component={MyProfile} />
     </Drawer.Navigator>
   );
 }

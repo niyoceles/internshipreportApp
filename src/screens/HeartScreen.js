@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Requests from '../components/Requests';
 // import InTouch from '../components/InTouch';
 import MyLovers from './MyLovers';
 import MyProfile from '../components/profile/MyProfile';
-// import NavHeader from '../components/posts/NavHeader';
+// import NavHeader from '../components/internships/NavHeader';
 
 const Tab = createMaterialTopTabNavigator();
 

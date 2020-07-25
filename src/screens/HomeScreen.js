@@ -1,8 +1,8 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import Posts from '../components/posts/Posts';
-import ViewPost from '../components/posts/ViewPost';
-import ProfileScreen from './ProfileScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import Internships from '../components/internships/Internships';
+import ViewInternship from '../components/internships/ViewInternship';
+import MyProfile from '../components/profile/MyProfile';
 
 const Stack = createStackNavigator();
 
@@ -10,25 +10,25 @@ function HomeScreen() {
   return (
     <Stack.Navigator init>
       <Stack.Screen
-        name="Posts"
-        component={Posts}
+        name="Internships"
+        component={Internships}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="ViewPost"
-        component={ViewPost}
-        options={ViewPost.navigationOptions}
-      />  
+        name="ViewInternship"
+        component={ViewInternship}
+        options={ViewInternship.navigationOptions}
+      />
       <Stack.Screen
         name="FirstStep"
-        component={ViewPost}
+        component={ViewInternship}
         options={{
           title: 'let People get your love',
         }}
       />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Profile" component={MyProfile} />
     </Stack.Navigator>
   );
 }

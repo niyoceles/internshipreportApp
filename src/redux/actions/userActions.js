@@ -17,9 +17,9 @@ export const loginUser = userData => dispatch => {
 	axios
 		.post('https://itrackinfo.herokuapp.com/user/signin', userData)
 		.then(res => {
-      console.log('error:', res.data)
+      console.log('data from::', res.data)
 			setAuthorization(res.data.User.token);
-      dispatch({ type: SET_USER, payload: res.data.User });
+      dispatch({ type: SET_USER, payload: res.data.User});
       AsyncStorage.setItem('userInfo', JSON.stringify(res.data.User));
 		})
 		.catch(err => {

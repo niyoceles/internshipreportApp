@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {DrawerActions} from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { DrawerActions } from '@react-navigation/native';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from './HomeScreen';
 import HeartScreen from './HeartScreen';
-import NavHeader from '../components/posts/NavHeader';
+import NavHeader from '../components/internships/NavHeader';
 // import Theme from '../constants/Theme';
 
 const Tab = createMaterialTopTabNavigator();

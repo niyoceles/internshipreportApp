@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {DrawerActions} from '@react-navigation/native';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { DrawerActions } from '@react-navigation/native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import {
   Container,
   View,
@@ -15,76 +15,97 @@ import {
   Right,
   Spinner,
 } from 'native-base';
-import { Ionicons } from '@expo/vector-icons';
-// import Theme from '../../constants/Theme';
+import { Entypo } from '@expo/vector-icons';
 import LikeButton from './LikeButton';
 import NavHeader from './NavHeader';
 
-import {connect} from 'react-redux';
-import {getPosts} from '../../redux/actions';
+import { connect } from 'react-redux';
+import { getInternships } from '../../redux/actions';
 
-class Posts extends Component {
+class Internships extends Component {
   componentDidMount() {
-    this.props.getPosts();
+    this.props.getInternships();
   }
   render() {
-    const {posts, loading} = this.props.data;
-    // const DATA = this.state.DATA;
-    console.log('posts:', posts);
-    let recentPostsLove = !loading ? (
+    const { internships, loading } = this.props.data;
+    // const DATA = this.state.DATA myinternships;
+    console.log('Internships:', internships.myinternships);
+    let recentInternshipsLove = !loading ? (
       <DeckSwiper
-        ref={c => (this._deckSwiper = c)}
-        dataSource={posts}
+        ref={(c) => (this._deckSwiper = c)}
+        dataSource={internships.myinternships}
         renderEmpty={() => (
-          <View style={{alignSelf: 'center'}}>
+          <View style={{ alignSelf: 'center' }}>
             <Text>Try again</Text>
           </View>
         )}
-        renderItem={item => (
+        renderItem={(item) => (
           <TouchableOpacity
             post={item}
-            onPress={() => this.props.navigation.navigate('ViewPost', item)}>
+            onPress={() =>
+              this.props.navigation.navigate('ViewInternship', item)
+            }
+          >
             <Card style={styles.cardSwipe}>
+              <CardItem>
+                <Left>
+                  <Body>
+                    <Text>{item.studentId}</Text>
+                    <Text note>NativeBase {item.address}</Text>
+                  </Body>
+                </Left>
+              </CardItem>
               <CardItem cardBody>
                 <Image
-                  style={{height: 350, flex: 1}}
-                  source={{
-                    uri: `${item.image}`,
-                  }}
+                  style={{ height: 350, flex: 1 }}
+                  source={require('../../assets/user.png')}
                 />
                 <View
                   style={{
                     position: 'absolute',
-                    top: 290,
+                    top: 190,
                     left: 0,
                     width: '100%',
                     bottom: 0,
                     padding: 10,
                     justifyContent: 'center',
                     alignItems: 'center',
-                  }}>
+                  }}
+                >
                   <Text
                     style={{
                       color: '#fff',
                       fontWeight: 'bold',
                       fontStyle: 'normal',
                       fontSize: 20,
-                    }}>
-                    {item.names}
+                    }}
+                  >
+                    {item.companyName}
                   </Text>
-                  <View style={{flexDirection: 'row', padding: 5}}>
-                    <Ionicons
+                  <Text
+                    style={{
+                      color: '#fff',
+                      fontWeight: 'bold',
+                      fontStyle: 'normal',
+                      fontSize: 20,
+                    }}
+                  >
+                    {item.contact}
+                  </Text>
+                  <View style={{ flexDirection: 'row', padding: 5 }}>
+                    <Entypo
                       name="location"
                       size={25}
-                      style={{color: '#fff', marginTop: 0}}
+                      style={{ color: '#fff', marginTop: 0 }}
                     />
                     <Text
                       style={{
                         color: '#fff',
                         fontWeight: 'normal',
                         fontStyle: 'italic',
-                      }}>
-                      {item.location}
+                      }}
+                    >
+                      {item.address}
                     </Text>
                   </View>
                 </View>
@@ -92,23 +113,26 @@ class Posts extends Component {
               <CardItem>
                 <Left>
                   <Body>
-                    <Text style={{color: '#ED4A6A'}}>Loves:</Text>
-                    <Text style={{color: '#333', fontSize: 10}} note>
+                    <Text style={{ color: '#ED4A6A' }}>
+                      Location:{item.address}
+                    </Text>
+                    <Text style={{ color: '#333', fontSize: 10 }} note>
                       {item.favorites}
                     </Text>
                   </Body>
                 </Left>
-                <Right style={{flexDirection: 'column'}}>
+                <Right style={{ flexDirection: 'column' }}>
                   <TouchableOpacity>
                     <Text
                       style={{
                         fontSize: 8,
                         textAlign: 'center',
                         marginHorizontal: 10,
-                      }}>
-                      Go In Love
+                      }}
+                    >
+                      View
                     </Text>
-                    <LikeButton loveId={item.loveId} />
+                    <LikeButton loveId={item.id} />
                   </TouchableOpacity>
                 </Right>
               </CardItem>
@@ -131,7 +155,7 @@ class Posts extends Component {
             })
           }
         />
-        {recentPostsLove}
+        {recentInternshipsLove}
       </Container>
     );
   }
@@ -143,15 +167,12 @@ const styles = StyleSheet.create({
   },
 });
 
-Posts.propTypes = {
-  getPosts: PropTypes.func.isRequired,
+Internships.propTypes = {
+  getInternships: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.data,
 });
 
-export default connect(
-  mapStateToProps,
-  {getPosts},
-)(Posts);
+export default connect(mapStateToProps, { getInternships })(Internships);

@@ -1,41 +1,39 @@
 import {
-  SET_POSTS,
+  SET_INTERNSHIPS,
   LOADING_DATA,
-  LIKE_POST,
-  UNLIKE_POST,
-  DELETE_POST,
+  DELETE_INTERNSHIP,
   SET_ERRORS,
-  POST_POST,
   CLEAR_ERRORS,
   LOADING_UI,
-  SET_POST,
-  ADD_POST,
+  SET_INTERNSHIP,
+  ADD_INTERNSHIP,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
 } from '../types';
 import axios from 'axios';
 
 // Get all posts love
-export const getPosts = () => (dispatch) => {
+export const getInternships = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
-    .get('https://itrackinfo.herokuapp.com/internship/student')
+    .get('https://itrackinfo.herokuapp.com/internship/myinternships')
     .then((res) => {
+      console.log('hhhh', res.data.myinternships);
       dispatch({
-        type: SET_POSTS,
+        type: SET_INTERNSHIPS,
         payload: res.data,
       });
       // console.log(res.data);
     })
     .catch((err) => {
       dispatch({
-        type: SET_POSTS,
+        type: SET_INTERNSHIPS,
         payload: [],
       });
     });
 };
 
-export const getPost = (loveId) => (dispatch) => {
+export const getInternship = (loveId) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .get(
@@ -43,7 +41,7 @@ export const getPost = (loveId) => (dispatch) => {
     )
     .then((res) => {
       dispatch({
-        type: SET_POST,
+        type: SET_INTERNSHIP,
         payload: res.data,
       });
       dispatch({ type: STOP_LOADING_UI });
@@ -51,14 +49,14 @@ export const getPost = (loveId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// Post a post
+// Internship a post
 export const addInternship = (postLoveData) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post('https://itrackinfo.herokuapp.com/internship', postLoveData)
     .then((res) => {
       dispatch({
-        type: ADD_POST,
+        type: ADD_INTERNSHIP,
         payload: res.data,
       });
       dispatch(clearErrors());

@@ -1,12 +1,7 @@
 import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Ionicons } from '@expo/vector-icons';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './HomeScreen';
-// import HeartScreen from './HeartScreen';
-// import AddPostProfile from '../components/profile/AddPostProfile';
-// import MyProfile from '../components/profile/MyProfile';
 import Theme from '../constants/Theme';
 import MyProfile from '../components/profile/MyProfile';
 
@@ -26,7 +21,11 @@ function Tabs() {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: () => (
-            <Ionicons name="home" color={Theme.COLORS.ACTIVE} size={16} />
+            <MaterialCommunityIcons
+              name="home-account"
+              color={Theme.COLORS.ACTIVE}
+              size={16}
+            />
           ),
         }}
       />
@@ -34,9 +33,13 @@ function Tabs() {
         name="Chats"
         component={MyProfile}
         options={{
-          tabBarLabel: 'Chats',
+          tabBarLabel: 'My Account',
           tabBarIcon: () => (
-            <Ionicons name="message" color={Theme.COLORS.ACTIVE} size={16} />
+            <MaterialCommunityIcons
+              name="account-card-details"
+              color={Theme.COLORS.ACTIVE}
+              size={16}
+            />
           ),
         }}
       />

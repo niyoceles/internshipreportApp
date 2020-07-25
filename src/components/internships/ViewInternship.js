@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import {
   View,
@@ -9,7 +9,6 @@ import {
   Alert,
   StyleSheet,
 } from 'react-native';
-// import Icon from 'react-native-vector-icons/EvilIcons';
 import User from '../../User';
 
 import {
@@ -23,17 +22,17 @@ import {
   Title,
   Right,
 } from 'native-base';
-import { Ionicons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons'; 
 import Theme from '../../constants/Theme';
-import {connect} from 'react-redux';
-import {getPost, logoutUser, clearErrors} from '../../redux/actions';
+import { connect } from 'react-redux';
+import { getInternship, logoutUser, clearErrors } from '../../redux/actions';
 import ProfileComments from './ProfileComments';
 import CommentForm from './CommentForm';
 import LikeButton from './LikeButton';
 import styles from '../../constants/styles';
 
-class ViewPosts extends Component {
-  static navigationOptions = ({route}) => ({
+class ViewInternship extends Component {
+  static navigationOptions = ({ route }) => ({
     title: route.params.names + " 's profile",
     headerTintColor: Theme.COLORS.DEFAULT,
     headerStyle: {
@@ -42,7 +41,7 @@ class ViewPosts extends Component {
   });
 
   componentDidMount() {
-    this.props.getPost(this.props.route.params.loveId);
+    this.props.getInternship(this.props.route.params.loveId);
     // console.log(this.props.route.name);
   }
 
@@ -63,8 +62,8 @@ class ViewPosts extends Component {
     } = this.props.route.params;
 
     const {
-      post: {loveId, loveComments, postImage},
-      UI: {loading},
+      internship: { loveId, loveComments, internshipImage },
+      UI: { loading },
     } = this.props;
 
     // const {
@@ -83,40 +82,42 @@ class ViewPosts extends Component {
     return (
       <Container>
         <ScrollView>
-          <Card style={{elevation: 3}}>
+          <Card style={{ elevation: 3 }}>
             <CardItem
               style={{
                 flexDirection: 'column',
                 backgroundColor: Theme.COLORS.BLOCK,
-              }}>
+              }}
+            >
               <Thumbnail
                 source={{
                   uri: `${userImage}`,
                 }}
               />
-              <Text style={{color: Theme.COLORS.PRIMARY}}>
+              <Text style={{ color: Theme.COLORS.PRIMARY }}>
                 Status: {status}
               </Text>
-              <Text style={{color: Theme.COLORS.PRIMARY}}>
+              <Text style={{ color: Theme.COLORS.PRIMARY }}>
                 Country: {nationality}
               </Text>
-              <View style={{flexDirection: 'row'}}>
-                <Ionicons
+              <View style={{ flexDirection: 'row' }}>
+                <Entypo
                   name="location"
                   size={25}
-                  style={{color: Theme.COLORS.PRIMARY, marginTop: 0}}
+                  style={{ color: Theme.COLORS.PRIMARY, marginTop: 0 }}
                 />
                 <Text
-                  style={{color: Theme.COLORS.PRIMARY, fontStyle: 'italic'}}>
+                  style={{ color: Theme.COLORS.PRIMARY, fontStyle: 'italic' }}
+                >
                   {location}
                 </Text>
               </View>
             </CardItem>
           </Card>
-          <Card style={{elevation: 3}}>
+          <Card style={{ elevation: 3 }}>
             <CardItem cardBody>
               <Image
-                style={{height: 300, flex: 1}}
+                style={{ height: 300, flex: 1 }}
                 source={{
                   uri: `${image}`,
                 }}
@@ -127,29 +128,30 @@ class ViewPosts extends Component {
                 style={{
                   flexDirection: 'column',
                   alignItems: 'stretch',
-                }}>
-                <Text style={{textAlign: 'left', fontSize: 10}}>
+                }}
+              >
+                <Text style={{ textAlign: 'left', fontSize: 10 }}>
                   Likes:{likeCount}
                 </Text>
-                <Text style={{textAlign: 'left', fontSize: 10}}>
+                <Text style={{ textAlign: 'left', fontSize: 10 }}>
                   comments:{commentCount}
                 </Text>
               </View>
               <Right>
-                <View style={{flexDirection: 'column', marginRight: 0}}>
-                  <Text style={{fontSize: 8}}>Please request a love</Text>
+                <View style={{ flexDirection: 'column', marginRight: 0 }}>
+                  <Text style={{ fontSize: 8 }}>Please request a love</Text>
                   <LikeButton loveId={loveId} />
                 </View>
               </Right>
             </CardItem>
           </Card>
-          <Card style={{elevation: 3}}>
-            <View style={{flexDirection: 'row'}}>
+          <Card style={{ elevation: 3 }}>
+            <View style={{ flexDirection: 'row' }}>
               <CardItem>
-                <Title style={{color: '#333', fontWeight: 'bold'}}>
+                <Title style={{ color: '#333', fontWeight: 'bold' }}>
                   About:
                 </Title>
-                <Text style={{marginLeft: 5}}> {names}</Text>
+                <Text style={{ marginLeft: 5 }}> {names}</Text>
               </CardItem>
               <TouchableOpacity
                 onPress={this.handleSubmit}
@@ -166,26 +168,27 @@ class ViewPosts extends Component {
                   borderRadius: 5,
                   paddingVertical: 1,
                   paddingHorizontal: 1,
-                }}>
-                <Text style={{fontSize: 10}}>Connect with!</Text>
-                <Ionicons
+                }}
+              >
+                <Text style={{ fontSize: 10 }}>Connect with!</Text>
+                <Entypo
                   name="envelope"
                   size={40}
-                  style={{color: Theme.COLORS.PRIMARY, marginTop: 0}}
+                  style={{ color: Theme.COLORS.PRIMARY, marginTop: 0 }}
                 />
               </TouchableOpacity>
             </View>
-            <CardItem style={{backgroundColor: Theme.COLORS.ABOUT_COLOR}}>
+            <CardItem style={{ backgroundColor: Theme.COLORS.ABOUT_COLOR }}>
               <Text>{body}</Text>
             </CardItem>
-            <CardItem style={{backgroundColor: Theme.COLORS.TERTIERY}}>
-              <Title style={{color: '#333', fontWeight: 'bold'}}>
+            <CardItem style={{ backgroundColor: Theme.COLORS.TERTIERY }}>
+              <Title style={{ color: '#333', fontWeight: 'bold' }}>
                 I like:{' '}
               </Title>
               <Text>{favorites}</Text>
             </CardItem>
           </Card>
-          <Card style={{elevation: 3}}>
+          <Card style={{ elevation: 3 }}>
             <CardItem>
               <CommentForm loveId={loveId} />
             </CardItem>
@@ -214,19 +217,16 @@ class ViewPosts extends Component {
 //   },
 // });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
-  post: state.data.post,
+  internship: state.data.internship,
   UI: state.UI,
 });
 
 const mapActionsToProps = {
   logoutUser,
-  getPost,
+  getInternship,
   clearErrors,
 };
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps,
-)(ViewPosts);
+export default connect(mapStateToProps, mapActionsToProps)(ViewInternship);

@@ -9,7 +9,6 @@ import {
   Alert,
 } from 'react-native';
 import { Button, Form, Item, Input, Label, Title, Spinner } from 'native-base';
-// import { Ionicons } from '@expo/vector-icons';
 import Theme from '../../constants/Theme';
 import { connect } from 'react-redux';
 import { signupUser } from '../../redux/actions';
