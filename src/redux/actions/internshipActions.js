@@ -18,10 +18,9 @@ export const getInternships = () => (dispatch) => {
   axios
     .get('https://itrackinfo.herokuapp.com/internship/myinternships')
     .then((res) => {
-      console.log('hhhh', res.data.myinternships);
       dispatch({
         type: SET_INTERNSHIPS,
-        payload: res.data,
+        payload: res.data.myinternships,
       });
       // console.log(res.data);
     })
@@ -31,22 +30,6 @@ export const getInternships = () => (dispatch) => {
         payload: [],
       });
     });
-};
-
-export const getInternship = (loveId) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-  axios
-    .get(
-      `https://europe-west1-inlove-46f42.cloudfunctions.net/api/love/${loveId}`
-    )
-    .then((res) => {
-      dispatch({
-        type: SET_INTERNSHIP,
-        payload: res.data,
-      });
-      dispatch({ type: STOP_LOADING_UI });
-    })
-    .catch((err) => console.log(err));
 };
 
 // Internship a post
