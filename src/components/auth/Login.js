@@ -125,12 +125,7 @@ class Login extends Component {
             <Text style={styles.textAuth}>Don't have an account, </Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Drawer')}
-            >
-              <Text
-                style={{ fontSize: 14, fontWeight: 'bold', ...styles.textAuth }}
-              >
-                Go Home
-              </Text>
+            > 
             </TouchableOpacity>
           </View>
         </View>

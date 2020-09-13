@@ -50,7 +50,6 @@ export const setAuthorization = token => {
 
 export const logoutUser = () => dispatch => {
 	AsyncStorage.removeItem('userIdToken');
-	console.log('Toooo:', AsyncStorage.getItem('userIdToken'));
 	delete axios.defaults.headers.common.Authorization;
 	dispatch({ type: SET_UNAUTHENTICATED });
 };
