@@ -13,6 +13,7 @@ import {
 	GET_COMMENT_FAILURE,
 } from '../types';
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
 
 // Get all posts love
 export const getInternships = () => dispatch => {
@@ -39,7 +40,7 @@ export const getInternship = id => dispatch => {
 	axios
 		.get(`https://itrackinfo.herokuapp.com/internship/${id}`)
 		.then(res => {
-			console.log('ggggggggggggg', res.data.readinternship.comments);
+			// console.log('ggggggggggggg', res.data.readinternship.comments);
 			dispatch({
 				type: GET_COMMENT_SUCCESS,
 				payload: res.data.readinternship.comments
@@ -76,18 +77,20 @@ export const addInternship = postLoveData => dispatch => {
 };
 
 // Submit a comment
-export const submitComment = (loveId, commentData) => dispatch => {
+export const submitComment = commentData => dispatch => {
+	console.log('ddddddddddddddd', commentData);
 	axios
-		.post(
-			`https://europe-west1-inlove-46f42.cloudfunctions.net/api/love/${loveId}/comment`,
-			commentData
-		)
+		.post(`https://itrackinfo.herokuapp.com/internship/comment`, commentData)
 		.then(res => {
 			dispatch({
 				type: SUBMIT_COMMENT,
 				payload: res.data,
 			});
-			dispatch(clearErrors());
+			// Toast.show({
+			// 	text1: 'Hello',
+			// 	text2: 'This is some something 👋',
+			// });
+			// dispatch(clearErrors());
 		})
 		.catch(err => {
 			dispatch({

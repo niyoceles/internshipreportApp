@@ -16,6 +16,7 @@ const initialState = {
 	myinternship: {},
 	loading: false,
 	comments: [],
+	addcomment: null,
 };
 
 export default function (state = initialState, action) {
@@ -71,6 +72,7 @@ export default function (state = initialState, action) {
 					...state.internship,
 					comments: [action.payload, ...state.internship.comments],
 				},
+				addcomment: action.payload,
 			};
 		default:
 			return state;

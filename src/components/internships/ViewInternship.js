@@ -28,8 +28,6 @@ import { connect } from 'react-redux';
 import { getInternship, logoutUser, clearErrors } from '../../redux/actions';
 import ProfileComments from './ProfileComments';
 import CommentForm from './CommentForm';
-import LikeButton from './LikeButton';
-import styles from '../../constants/styles';
 
 class ViewInternship extends Component {
 	static navigationOptions = ({ route }) => ({
@@ -59,19 +57,19 @@ class ViewInternship extends Component {
 			mark,
 			startDate,
 			status,
-		} = this.props.route.params.student;
+		} = this.props.route.params;
 
 		const {
 			internship,
 			UI: { loading },
-    } = this.props;
-    console.log('vvvvv', internship)
+		} = this.props;
 
+		console.log('vvvvvpppp', this.props);
 
 		const commentsCards = loading ? (
 			<Spinner color='red' />
 		) : (
-			<ProfileComments lvcomments={internship.comments} />
+			<ProfileComments icomments={internship.comments} />
 		);
 
 		return (
@@ -84,27 +82,53 @@ class ViewInternship extends Component {
 								backgroundColor: Theme.COLORS.BLOCK,
 							}}
 						>
+							<Title style={{ color: Theme.COLORS.PRIMARY }}>
+								{student.names}
+							</Title>
 							<Text style={{ color: Theme.COLORS.PRIMARY }}>
-								Status: {status}
+								Email: {student.email}
 							</Text>
 							<Text style={{ color: Theme.COLORS.PRIMARY }}>
-								Company name: {companyName}
+								Ph: {student.phoneNumber}
 							</Text>
-							<View style={{ flexDirection: 'row' }}>
-								<Entypo
-									name='location'
-									size={25}
-									style={{ color: Theme.COLORS.PRIMARY, marginTop: 0 }}
-								/>
-								<Text
-									style={{ color: Theme.COLORS.PRIMARY, fontStyle: 'italic' }}
-								>
-									{address}
-								</Text>
-							</View>
+							<Text style={{ color: Theme.COLORS.PRIMARY }}>
+								Reg: {student.regNumber}
+							</Text>
 						</CardItem>
 					</Card>
 					<Card style={{ elevation: 3 }}>
+						<CardItem style={{ backgroundColor: Theme.COLORS.TERTIERY }}>
+							<Title style={{ color: '#333', fontWeight: 'bold' }}>
+								Internship to : {companyName}
+							</Title>
+						</CardItem>
+						<View
+							style={{
+								flexDirection: 'row',
+								backgroundColor: Theme.COLORS.TERTIERY,
+								padding: 10,
+							}}
+						>
+							<Entypo
+								name='location'
+								size={25}
+								style={{ color: Theme.COLORS.PRIMARY, marginTop: 0 }}
+							/>
+							<Text
+								style={{ color: Theme.COLORS.PRIMARY, fontStyle: 'italic' }}
+							>
+								{address}
+							</Text>
+							<Right>
+								<View style={{ flexDirection: 'column', marginRight: 0 }}>
+									<Text style={{ fontSize: 8 }}>Start at:{startDate} </Text>
+									<Text style={{ fontSize: 8 }}>End at {endDate} </Text>
+								</View>
+							</Right>
+						</View>
+						<CardItem>
+							<CommentForm internshipId={id} />
+						</CardItem>
 						<CardItem>
 							<View
 								style={{
@@ -112,67 +136,16 @@ class ViewInternship extends Component {
 									alignItems: 'stretch',
 								}}
 							>
-								<Text style={{ textAlign: 'left', fontSize: 10 }}>
-									Likes:{contact}
-								</Text>
-								<Text style={{ textAlign: 'left', fontSize: 10 }}>
-									comments:{comment}
+								<Text style={{ textAlign: 'left', fontSize: 14 }}>
+									comments: {internship.comments.length}
 								</Text>
 							</View>
 							<Right>
 								<View style={{ flexDirection: 'column', marginRight: 0 }}>
-									<Text style={{ fontSize: 8 }}></Text>
-									<LikeButton internshipId={id} />
+									<Text style={{ fontSize: 8 }}>Start at: </Text>
+									<Text style={{ fontSize: 8 }}>End at </Text>
 								</View>
 							</Right>
-						</CardItem>
-					</Card>
-					<Card style={{ elevation: 3 }}>
-						<View style={{ flexDirection: 'row' }}>
-							<CardItem>
-								<Title style={{ color: '#333', fontWeight: 'bold' }}>
-									About:
-								</Title>
-								<Text style={{ marginLeft: 5 }}> {companyName}</Text>
-							</CardItem>
-							<TouchableOpacity
-								onPress={this.handleSubmit}
-								style={{
-									margin: 1,
-									color: Theme.COLORS.PRIMARY,
-									width: 70,
-									fontSize: 14,
-									right: 0,
-									alignContent: 'center',
-									alignItems: 'center',
-									borderWidth: 1,
-									borderColor: Theme.COLORS.PRIMARY,
-									borderRadius: 5,
-									paddingVertical: 1,
-									paddingHorizontal: 1,
-								}}
-							>
-								<Text style={{ fontSize: 10 }}>Connect with!</Text>
-								<Entypo
-									name='envelope'
-									size={40}
-									style={{ color: Theme.COLORS.PRIMARY, marginTop: 0 }}
-								/>
-							</TouchableOpacity>
-						</View>
-						<CardItem style={{ backgroundColor: Theme.COLORS.ABOUT_COLOR }}>
-							<Text>{}</Text>
-						</CardItem>
-						<CardItem style={{ backgroundColor: Theme.COLORS.TERTIERY }}>
-							<Title style={{ color: '#333', fontWeight: 'bold' }}>
-								I like:{' '}
-							</Title>
-							<Text>{companyName}</Text>
-						</CardItem>
-					</Card>
-					<Card style={{ elevation: 3 }}>
-						<CardItem>
-							<CommentForm internshipId={id} />
 						</CardItem>
 						{commentsCards}
 					</Card>
@@ -182,26 +155,9 @@ class ViewInternship extends Component {
 	}
 }
 
-// const styles = StyleSheet.create({
-//   name: {
-//     fontSize: 14,
-//   },
-//   body: {
-//     fontSize: 12,
-//     width: 'auto',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   item: {
-//     backgroundColor: '#d6d7da',
-//     textAlign: 'center',
-//     margin: 5,
-//   },
-// });
-
 const mapStateToProps = state => ({
 	user: state.user,
-	internship: state.data.internship,
+	internship: state.data,
 	UI: state.UI,
 });
 

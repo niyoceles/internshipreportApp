@@ -1,88 +1,105 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {View, Image, TouchableOpacity, SafeAreaView, Alert} from 'react-native';
-import {Textarea, CardItem, Thumbnail} from 'native-base';
+import {
+	View,
+	Image,
+	TouchableOpacity,
+	SafeAreaView,
+	Alert,
+} from 'react-native';
+import { Textarea } from 'native-base';
 // Redux stuff
-import {connect} from 'react-redux';
-import {submitComment} from '../../redux/actions';
+import { connect } from 'react-redux';
+import { submitComment } from '../../redux/actions';
 
 class CommentForm extends Component {
-  state = {
-    body: '',
-    errors: {},
-  };
+	state = {
+		body: '',
+		errors: {},
+	};
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.UI.errors) {
-      this.setState({errors: nextProps.UI.errors});
-    }
-    if (!nextProps.UI.errors && !nextProps.UI.loading) {
-      this.setState({body: ''});
-    }
-  }
+	UNSAFE_componentWillReceiveProps(nextProps) {
+		if (nextProps.UI.errors) {
+			this.setState({ errors: nextProps.UI.errors });
+		}
+		if (!nextProps.UI.errors && !nextProps.UI.loading) {
+			this.setState({ body: '' });
+		}
+	}
 
-  handleChange = key => val => {
-    this.setState({[key]: val});
-  };
+	handleChange = key => val => {
+		this.setState({ [key]: val });
+	};
 
-  handleSubmit = async () => {
-    if (this.state.body.length > 0) {
-      this.props.submitComment(this.props.loveId, {body: this.state.body});
-    } else {
-      Alert.alert('Error', 'Wrong email');
-    }
-  };
+	handleSubmit = async () => {
+		if (this.state.body.length > 0) {
+			const data = {
+				comment: this.state.body,
+				id: this.props.internshipId,
+			};
 
-  render() {
-    const {authenticated} = this.props;
-    const errors = this.state.errors;
+			this.props.submitComment(data);
+		} else {
+			Alert.alert('Error', 'Wrong email');
+		}
+	};
 
-    const commentFormMarkup = authenticated ? (
-      <SafeAreaView>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Textarea
-            style={{
-              padding: 5,
-              borderWidth: 2,
-              borderColor: '#cccc',
-              width: '88%',
-              marginBottom: 10,
-              borderRadius: 5,
-              color: '#000000',
-            }}
-            value={this.state.body}
-            placeholder="type comment here..."
-            onChangeText={this.handleChange('body')}
-          />
-          <TouchableOpacity
-            onPress={this.handleSubmit}
-            style={{paddingBottom: 10, marginLeft: 0}}>
-            <Image
-              source={require('../../images/send-button.png')}
-              style={{width: 25, height: 35, marginRight: 1, marginLeft: 5}}
-            />
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
-    ) : null;
-    return commentFormMarkup;
-  }
+	render() {
+		const { authenticated, addcomment } = this.props;
+		console.log('bbbbbbbbbbbbbbbbbbb', this.props)
+		const errors = this.state.errors;
+
+		const commentFormMarkup = authenticated ? (
+			<SafeAreaView>
+				<View
+					style={{
+						flexDirection: 'row',
+						alignItems: 'center',
+					}}
+				>
+					<Textarea
+						style={{
+							padding: 5,
+							borderWidth: 2,
+							borderColor: '#cccc',
+							width: '88%',
+							marginBottom: 10,
+							borderRadius: 5,
+							color: '#000000',
+						}}
+						value={this.state.body}
+						placeholder='type comment here...'
+						onChangeText={this.handleChange('body')}
+					/>
+					{this.state.body ? (
+						<TouchableOpacity
+							onPress={this.handleSubmit}
+							style={{ paddingBottom: 10, marginLeft: 0 }}
+						>
+							<Image
+								source={require('../../images/send-button.png')}
+								style={{ width: 25, height: 35, marginRight: 1, marginLeft: 5 }}
+							/>
+						</TouchableOpacity>
+					) : null}
+				</View>
+			</SafeAreaView>
+		) : null;
+		return commentFormMarkup;
+	}
 }
 
 CommentForm.propTypes = {
-  submitComment: PropTypes.func.isRequired,
-  UI: PropTypes.object.isRequired,
-  loveId: PropTypes.string.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+	submitComment: PropTypes.func.isRequired,
+	UI: PropTypes.object.isRequired,
+	loveId: PropTypes.string.isRequired,
+	authenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-  UI: state.UI,
-  authenticated: state.user.authenticated,
+	UI: state.UI,
+	addcomment: state.data,
+	authenticated: state.user.authenticated,
 });
 
-export default connect(mapStateToProps, {submitComment})(CommentForm);
+export default connect(mapStateToProps, { submitComment })(CommentForm);
