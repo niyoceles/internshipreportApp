@@ -11,11 +11,11 @@ import {
 	SUBMIT_COMMENT,
 	GET_COMMENT_SUCCESS,
 	GET_COMMENT_FAILURE,
+	SUBMIT_DATA
 } from '../types';
 import axios from 'axios';
-import Toast from 'react-native-toast-message';
 
-// Get all posts love
+// Get all posts icomments
 export const getInternships = () => dispatch => {
 	dispatch({ type: LOADING_DATA });
 	axios
@@ -57,11 +57,12 @@ export const getInternship = id => dispatch => {
 };
 
 // Internship a post
-export const addInternship = postLoveData => dispatch => {
+export const addInternship = posticommentsData => dispatch => {
 	dispatch({ type: LOADING_UI });
 	axios
-		.post('https://itrackinfo.herokuapp.com/internship', postLoveData)
+		.post('https://itrackinfo.herokuapp.com/internship', posticommentsData)
 		.then(res => {
+			console.log('successed', res.data);
 			dispatch({
 				type: ADD_INTERNSHIP,
 				payload: res.data,
@@ -69,6 +70,7 @@ export const addInternship = postLoveData => dispatch => {
 			dispatch(clearErrors());
 		})
 		.catch(err => {
+			console.log('eeeeeeeejj', err.response.data);
 			dispatch({
 				type: SET_ERRORS,
 				payload: err.response.data,
@@ -78,19 +80,15 @@ export const addInternship = postLoveData => dispatch => {
 
 // Submit a comment
 export const submitComment = commentData => dispatch => {
-	console.log('ddddddddddddddd', commentData);
+	// console.log('ddddddddddddddd', commentData);
 	axios
 		.post(`https://itrackinfo.herokuapp.com/internship/comment`, commentData)
 		.then(res => {
 			dispatch({
 				type: SUBMIT_COMMENT,
-				payload: res.data,
+				payload: res.data.message,
 			});
-			// Toast.show({
-			// 	text1: 'Hello',
-			// 	text2: 'This is some something 👋',
-			// });
-			// dispatch(clearErrors());
+			dispatch(clearErrors());
 		})
 		.catch(err => {
 			dispatch({

@@ -11,6 +11,7 @@ import { Textarea } from 'native-base';
 // Redux stuff
 import { connect } from 'react-redux';
 import { submitComment } from '../../redux/actions';
+// import { Updates } from 'expo';
 
 class CommentForm extends Component {
 	state = {
@@ -40,15 +41,13 @@ class CommentForm extends Component {
 
 			this.props.submitComment(data);
 		} else {
-			Alert.alert('Error', 'Wrong email');
+			Alert.alert('Error', 'Please add comment');
 		}
 	};
 
 	render() {
-		const { authenticated, addcomment } = this.props;
-		console.log('bbbbbbbbbbbbbbbbbbb', this.props)
+		const { authenticated, mycomments } = this.props;
 		const errors = this.state.errors;
-
 		const commentFormMarkup = authenticated ? (
 			<SafeAreaView>
 				<View
@@ -57,6 +56,10 @@ class CommentForm extends Component {
 						alignItems: 'center',
 					}}
 				>
+					{mycomments.addcomment
+						? Alert.alert('Success', 'Your comment Successful added')
+						: null}
+					{/* {mycomments.addcomment ? Updates.reload() : null} */}
 					<Textarea
 						style={{
 							padding: 5,
@@ -92,13 +95,13 @@ class CommentForm extends Component {
 CommentForm.propTypes = {
 	submitComment: PropTypes.func.isRequired,
 	UI: PropTypes.object.isRequired,
-	loveId: PropTypes.string.isRequired,
+	internshipId: PropTypes.string.isRequired,
 	authenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
 	UI: state.UI,
-	addcomment: state.data,
+	mycomments: state.data,
 	authenticated: state.user.authenticated,
 });
 

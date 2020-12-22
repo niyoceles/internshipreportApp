@@ -8,15 +8,17 @@ import {
 	SUBMIT_COMMENT,
 	GET_COMMENT_SUCCESS,
 	GET_COMMENT_FAILURE,
+	SUBMIT_DATA,
 } from '../types';
 
 const initialState = {
 	internships: [],
 	internship: {},
-	myinternship: {},
+	myinternship: null,
 	loading: false,
 	comments: [],
 	addcomment: null,
+	submiting: null,
 };
 
 export default function (state = initialState, action) {
@@ -25,6 +27,13 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				loading: true,
+			};
+		case SUBMIT_DATA:
+			return {
+				...state,
+				loading: false,
+				submitting: 'submitting',
+				addcomment: null,
 			};
 		case SET_INTERNSHIPS:
 			return {
@@ -36,6 +45,7 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				internship: action.payload,
+				addcomment: null,
 			};
 		case GET_COMMENT_SUCCESS:
 			return {
@@ -49,7 +59,7 @@ export default function (state = initialState, action) {
 			};
 		case DELETE_INTERNSHIP:
 			index = state.internships.findIndex(
-				internship => internship.loveId === action.payload
+				internship => internship.icommentsId === action.payload
 			);
 			state.internships.splice(index, 1);
 			return {
@@ -68,10 +78,6 @@ export default function (state = initialState, action) {
 		case SUBMIT_COMMENT:
 			return {
 				...state,
-				internship: {
-					...state.internship,
-					comments: [action.payload, ...state.internship.comments],
-				},
 				addcomment: action.payload,
 			};
 		default:

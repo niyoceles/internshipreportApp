@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DrawerActions } from '@react-navigation/native';
-import {StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import {
 	Container,
 	View,
@@ -29,14 +29,15 @@ const Internships = props => {
 	}, [dispatch]);
 
 	const { internships, loading } = Data;
-	let recentInternshipsLove = !loading ? (
+	let recentInternshipsicomments = !loading ? (
 		internships &&
 		internships.map((item, i) => (
 			<TouchableOpacity
+				key={item.id}
 				singleInternship={item}
 				onPress={() => props.navigation.navigate('ViewInternship', item)}
 			>
-				<Card style={styles.cardSwipe}>
+				<Card style={styles.cardSwipe} key={item.id}>
 					<CardItem>
 						<Left>
 							<Body>
@@ -46,7 +47,7 @@ const Internships = props => {
 						</Left>
 						<Right>
 							<Body>
-							<Entypo
+								<Entypo
 									name='arrow-right'
 									size={60}
 									style={{ color: Theme.COLORS.PRIMARY, marginTop: 0 }}
@@ -82,7 +83,7 @@ const Internships = props => {
 					})
 				}
 			/>
-			{recentInternshipsLove}
+			{recentInternshipsicomments}
 		</Container>
 	);
 };
@@ -93,9 +94,9 @@ const styles = StyleSheet.create({
 	},
 });
 
-Internships.propTypes = {
-	getInternships: PropTypes.func.isRequired,
-	data: PropTypes.object.isRequired,
-};
+// Internships.propTypes = {
+// 	getInternships: PropTypes.func.isRequired,
+// 	data: PropTypes.object.isRequired,
+// };
 
 export default Internships;

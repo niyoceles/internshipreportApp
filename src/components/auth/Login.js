@@ -50,7 +50,7 @@ class Login extends Component {
         this.setState({ loading: false });
       }, 4000);
       if (this.props.user.authenticated) {
-        console.log('jhhhhh', this.props.user);
+        // console.log('jhhhhh', this.props.user);
         return this.props.navigation.navigate('Drawer', {
           screen: 'Home',
         });

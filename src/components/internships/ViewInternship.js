@@ -15,9 +15,7 @@ import {
 	Container,
 	Card,
 	CardItem,
-	Thumbnail,
 	Text,
-	Left,
 	Spinner,
 	Title,
 	Right,
@@ -64,7 +62,7 @@ class ViewInternship extends Component {
 			UI: { loading },
 		} = this.props;
 
-		console.log('vvvvvpppp', this.props);
+		// console.log('vvvvvpppp', this.props);
 
 		const commentsCards = loading ? (
 			<Spinner color='red' />

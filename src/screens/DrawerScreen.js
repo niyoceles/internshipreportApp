@@ -38,7 +38,7 @@ export default function DrawerScreen() {
     >
       <Drawer.Screen name="Home" component={Tabs} />
       <Drawer.Screen name="Add Internship" component={AddInternship} />
-      <Drawer.Screen name="My Internship" component={MyProfile} />
+      {/* <Drawer.Screen name="My Internship" component={MyProfile} /> */}
       <Drawer.Screen name="My Account" component={MyProfile} />
     </Drawer.Navigator>
   );
