@@ -46,6 +46,24 @@ export const signupUser = newUserData => dispatch => {
 		});
 };
 
+export const signupSupervisor = newUserData => dispatch => {
+	dispatch({ type: LOADING_UI });
+	dispatch({ type: SUBMIT_DATA, payload: 'submitting' });
+	console.log('new user', newUserData);
+	axios
+		.post('https://itrackinfo.herokuapp.com/user/supervisor', newUserData)
+		.then(res => {
+			console.log('CREATE SUPERVISOR ACCOUNT', res.data);
+			setAuthorization(res.data.User.token);
+			dispatch({ type: SET_USER, payload: res.data.User });
+			AsyncStorage.setItem('userInfo', JSON.stringify(res.data.User));
+		})
+		.catch(err => {
+			console.log('ERZZROR:', err.response.data.error);
+			dispatch({ type: SET_ERRORS, payload: err.response.data.error });
+		});
+};
+
 export const getSupervisors = () => dispatch => {
 	axios
 		.get('https://itrackinfo.herokuapp.com/user/supervisor')
