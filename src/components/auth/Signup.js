@@ -91,7 +91,7 @@ class Signup extends Component {
 			>
 				<View style={styles.authForm}>
 					<Title style={{ color: Theme.COLORS.DEFAULT }}>
-						Create an account
+						Create student account
 					</Title>
 					{errors.error
 						? Alert.alert(

@@ -78,7 +78,7 @@ class SignupSupervisor extends Component {
 			loading,
 			errors,
 		} = this.state;
-		console.log('ERRORRR', errors.error);
+		// console.log('ERRORRR', errors.error);
 		return (
 			<ImageBackground
 				style={styles.image}
@@ -86,7 +86,7 @@ class SignupSupervisor extends Component {
 			>
 				<View style={styles.authForm}>
 					<Title style={{ color: Theme.COLORS.DEFAULT }}>
-						Create an account
+						Create supervisor account
 					</Title>
 					{errors.error
 						? Alert.alert(
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-Signup.propTypes = {
+SignupSupervisor.propTypes = {
 	signupSupervisor: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired,
 	UI: PropTypes.object.isRequired,

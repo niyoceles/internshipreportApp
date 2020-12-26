@@ -31,7 +31,7 @@ export class UserInfo extends Component {
         <Thumbnail source={require('../assets/user.png')} />
         <Text style={{ color: 'white', fontSize: 16 }}>{userInfo.names}</Text>
         <Text style={{ color: 'white', fontSize: 16 }}>#{userInfo.email}</Text>
-        <Text style={{ color: 'white', fontSize: 16 }}>I am {userInfo.email}</Text>
+        <Text style={{ color: 'white', fontSize: 20 }}>I am {userInfo.role}</Text>
       </View>
     );
   }

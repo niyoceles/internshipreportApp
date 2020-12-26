@@ -81,6 +81,7 @@ class Login extends Component {
 				source={require('../../assets/bg-auth.png')}
 			>
 				<View style={styles.authForm}>
+				<Title style={{ color: Theme.COLORS.DEFAULT, marginBottom:50 }}>INTERNERSHIP REPORT APP</Title>
 					<Title style={{ color: Theme.COLORS.DEFAULT }}>Please Login</Title>
 					<Form>
 						<Item floatingLabel last>
@@ -111,6 +112,8 @@ class Login extends Component {
 					</Form>
 					<View style={styles.textAuth2}>
 						<Text style={styles.textAuth}>Don't have an account, </Text>
+					</View>
+					<View style={styles.textAuth2}>
 						<TouchableOpacity
 							onPress={() => this.props.navigation.navigate('Signup')}
 						>
@@ -120,6 +123,8 @@ class Login extends Component {
 								Student Signup
 							</Text>
 						</TouchableOpacity>
+					</View>
+					<View style={styles.textAuth2}>
 						<TouchableOpacity
 							onPress={() => this.props.navigation.navigate('SignupSupervisor')}
 						>
@@ -129,12 +134,6 @@ class Login extends Component {
 								Account Supervisor
 							</Text>
 						</TouchableOpacity>
-					</View>
-					<View style={styles.textAuth2}>
-						<Text style={styles.textAuth}>Don't have an account, </Text>
-						<TouchableOpacity
-							onPress={() => this.props.navigation.navigate('Drawer')}
-						></TouchableOpacity>
 					</View>
 				</View>
 			</ImageBackground>

@@ -47,9 +47,9 @@ export const signupUser = newUserData => dispatch => {
 };
 
 export const signupSupervisor = newUserData => dispatch => {
-	dispatch({ type: LOADING_UI });
+	// dispatch({ type: LOADING_UI });
 	dispatch({ type: SUBMIT_DATA, payload: 'submitting' });
-	console.log('new user', newUserData);
+	console.log('new supervisor', newUserData);
 	axios
 		.post('https://itrackinfo.herokuapp.com/user/supervisor', newUserData)
 		.then(res => {
@@ -59,7 +59,7 @@ export const signupSupervisor = newUserData => dispatch => {
 			AsyncStorage.setItem('userInfo', JSON.stringify(res.data.User));
 		})
 		.catch(err => {
-			console.log('ERZZROR:', err.response.data.error);
+			console.log('ERsssssu:', err.response.data.error);
 			dispatch({ type: SET_ERRORS, payload: err.response.data.error });
 		});
 };
