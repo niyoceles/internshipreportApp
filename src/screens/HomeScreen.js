@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Internships from '../components/internships/Internships';
 import ViewInternship from '../components/internships/ViewInternship';
+import UpdateInternship from '../components/internships/UpdateInternship';
 import MyProfile from '../components/profile/MyProfile';
 
 const Stack = createStackNavigator();
@@ -20,6 +21,11 @@ function HomeScreen() {
 				name='ViewInternship'
 				component={ViewInternship}
 				options={ViewInternship.navigationOptions}
+			/>
+			<Stack.Screen
+				name='UpdateInternship'
+				component={UpdateInternship}
+				options={UpdateInternship.navigationOptions}
 			/>
 			<Stack.Screen
 				name='FirstStep'

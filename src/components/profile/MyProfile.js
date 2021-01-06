@@ -81,14 +81,14 @@ class MyProfile extends Component {
                   </Text>
                 </CardItem>
               </Card>
-              <Card style={{ elevation: 3 }}>
+              {/* <Card style={{ elevation: 3 }}>
                 <CardItem>
                   <Text>About :</Text>
                 </CardItem>
                 <CardItem>
                   <Text>Bio</Text>
                 </CardItem>
-              </Card>
+              </Card> */}
               <Card style={{ elevation: 3 }}>
                 <Button
                   block

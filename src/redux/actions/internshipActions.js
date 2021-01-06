@@ -7,11 +7,12 @@ import {
 	LOADING_UI,
 	SET_INTERNSHIP,
 	ADD_INTERNSHIP,
+	UPDATE_INTERNSHIP,
 	STOP_LOADING_UI,
 	SUBMIT_COMMENT,
 	GET_COMMENT_SUCCESS,
 	GET_COMMENT_FAILURE,
-	SUBMIT_DATA
+	SUBMIT_DATA,
 } from '../types';
 import axios from 'axios';
 
@@ -25,7 +26,6 @@ export const getInternships = () => dispatch => {
 				type: SET_INTERNSHIPS,
 				payload: res.data.myinternships,
 			});
-			// console.log(res.data);
 		})
 		.catch(err => {
 			dispatch({
@@ -40,7 +40,6 @@ export const getInternship = id => dispatch => {
 	axios
 		.get(`https://itrackinfo.herokuapp.com/internship/${id}`)
 		.then(res => {
-			// console.log('ggggggggggggg', res.data.readinternship.comments);
 			dispatch({
 				type: GET_COMMENT_SUCCESS,
 				payload: res.data.readinternship.comments
@@ -62,7 +61,7 @@ export const addInternship = posticommentsData => dispatch => {
 	axios
 		.post('https://itrackinfo.herokuapp.com/internship', posticommentsData)
 		.then(res => {
-			console.log('successed', res.data);
+			console.log('succeded', res.data);
 			dispatch({
 				type: ADD_INTERNSHIP,
 				payload: res.data,
@@ -70,6 +69,28 @@ export const addInternship = posticommentsData => dispatch => {
 			dispatch(clearErrors());
 		})
 		.catch(err => {
+			dispatch({
+				type: SET_ERRORS,
+				payload: err.response.data,
+			});
+		});
+};
+
+
+export const updateInternship = (id, newData) => dispatch => {
+	dispatch({ type: LOADING_UI });
+	axios
+		.put(`https://itrackinfo.herokuapp.com/internship/${id}`, newData)
+		.then(res => {
+			console.log('updated internship:', res.data);
+			dispatch({
+				type: UPDATE_INTERNSHIP,
+				payload: res.data.message,
+			});
+			dispatch(clearErrors());
+		})
+		.catch(err => {
+			// Restart();
 			console.log('eeeeeeeejj', err.response.data);
 			dispatch({
 				type: SET_ERRORS,

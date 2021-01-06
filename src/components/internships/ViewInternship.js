@@ -99,6 +99,35 @@ class ViewInternship extends Component {
 							<Title style={{ color: '#333', fontWeight: 'bold' }}>
 								Internship to : {companyName}
 							</Title>
+							<TouchableOpacity
+								key={student.id}
+								singleInternship={this.props.route.params}
+								onPress={() =>
+									this.props.navigation.navigate(
+										'UpdateInternship',
+										this.props.route.params
+									)
+								}
+							>
+								<Entypo
+									name='edit'
+									size={45}
+									style={{
+										color: Theme.COLORS.PRIMARY,
+										marginTop: 0,
+										marginLeft: 30,
+									}}
+								/>
+								<Title
+									style={{
+										color: Theme.COLORS.PRIMARY,
+										marginTop: 0,
+										marginLeft: 30,
+									}}
+								>
+									Update
+								</Title>
+							</TouchableOpacity>
 						</CardItem>
 						<View
 							style={{

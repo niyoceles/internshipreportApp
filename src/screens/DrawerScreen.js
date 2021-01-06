@@ -23,7 +23,7 @@ function CustomDrawerContent(props) {
 				<DrawerItemList {...props} />
 				<DrawerItem
 					label='Contact us'
-					onPress={() => Alert.alert('Yvonne', '0785569511')}
+					onPress={() => Alert.alert('Yvonne & Aimee', '0785569511')}
 				/>
 			</DrawerContentScrollView>
 		</React.Fragment>

@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DrawerActions } from '@react-navigation/native';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import {
 	Container,
 	View,
@@ -83,7 +83,7 @@ const Internships = props => {
 					})
 				}
 			/>
-			{recentInternshipsicomments}
+			<ScrollView>{recentInternshipsicomments}</ScrollView>
 		</Container>
 	);
 };
