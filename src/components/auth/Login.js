@@ -67,6 +67,7 @@ class Login extends Component {
 			//     Alert.alert('Error', this.state.errors);
 			//   }
 			// }, 2000);
+			
 		}
 	};
 
