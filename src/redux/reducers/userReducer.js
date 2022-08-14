@@ -6,6 +6,7 @@ import {
   LIKE_INTERNSHIP,
   UNLIKE_INTERNSHIP,
   MARK_NOTIFICATIONS_READ,
+  GET_SUPERVISOR
 } from '../types';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   credentials: {},
   likes: [],
   notifications: [],
+  supervisors: []
 };
 
 export default function (state = initialState, action) {
@@ -58,6 +60,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
+    case GET_SUPERVISOR:
+      return {
+        ...state,
+        supervisors: action.payload
+      }
     default:
       return state; //or return initialState
   }

@@ -58,6 +58,9 @@ export const getInternship = id => dispatch => {
 // Internship a post
 export const addInternship = postLoveData => dispatch => {
 	dispatch({ type: LOADING_UI });
+	console.log('================POST LOVE DATA====================');
+	console.log(postLoveData);
+	console.log('==================END OF LOVE DATA==================');
 	axios
 		.post('https://itrackinfo.herokuapp.com/internship', postLoveData)
 		.then(res => {
@@ -68,6 +71,9 @@ export const addInternship = postLoveData => dispatch => {
 			dispatch(clearErrors());
 		})
 		.catch(err => {
+			console.log('================ERRORS FROM LOVE DATA====================');
+			console.log(err);
+			console.log('==================END OF LOVE DATA==================');
 			dispatch({
 				type: SET_ERRORS,
 				payload: err.response.data,

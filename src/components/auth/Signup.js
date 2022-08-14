@@ -41,7 +41,7 @@ class Signup extends Component {
     if (email.length < 5) {
       Alert.alert('Error', 'Please, Enter your email');
     }
-    if (egNumber.length < 5) {
+    if (regNumber.length < 5) {
       Alert.alert('Error', 'Please, Enter registration number');
     }
     if (password.length < 6) {
