@@ -24,20 +24,28 @@ import {
 import { Entypo } from '@expo/vector-icons';
 import { DrawerActions } from '@react-navigation/native';
 import Theme from '../../constants/Theme';
-import NavHeader from './NavHeader';
 import { connect } from 'react-redux';
-import { addInternship, getSupervisors } from '../../redux/actions';
+import { updateInternship, getSupervisors } from '../../redux/actions';
 
-class AddInternship extends Component {
-	static navigationOptions = () => ({
-		headerShown: false,
+class UpdateInternship extends Component {
+	static navigationOptions = ({ route }) => ({
+		title: route.params.student.names + ' update internship',
+		headerTintColor: Theme.COLORS.DEFAULT,
+		headerStyle: {
+			backgroundColor: Theme.COLORS.PRIMARY,
+		},
 	});
+
+	// componentDidMount() {
+	// 	this.props.getInternship(this.props.route.params.id);
+	// }
+
 	state = {
-		companyName: '',
-		address: '',
-		contact: '',
-		startDate: '',
-		endDate: '',
+		companyName: this.props.route.params.companyName,
+		address: this.props.route.params.address,
+		contact: this.props.route.params.contact,
+		startDate: this.props.route.params.startDate,
+		endDate: this.props.route.params.endDate,
 		errors: {},
 		loading: false,
 		selected2: undefined,
@@ -45,12 +53,6 @@ class AddInternship extends Component {
 
 	async componentDidMount() {
 		await this.props.getSupervisors();
-		// if (userInfo) {
-		//   obj = JSON.parse(userInfo);
-		// }
-		// this.setState({
-		//   userInfo: obj,
-		// });
 	}
 
 	onValueChange2(value: string) {
@@ -91,8 +93,9 @@ class AddInternship extends Component {
 				contact,
 				startDate,
 				endDate,
+				status: 'active',
 			};
-			this.props.addInternship(newUserData);
+			this.props.updateInternship(this.props.route.params.id, newUserData);
 			this.setState({ loading: true });
 			setInterval(() => {
 				this.setState({ loading: false });
@@ -103,6 +106,7 @@ class AddInternship extends Component {
 	handleChange = key => val => {
 		this.setState({ [key]: val });
 	};
+
 	render() {
 		const {
 			companyName,
@@ -113,31 +117,18 @@ class AddInternship extends Component {
 			loading,
 		} = this.state;
 		const { supervisors } = this.props.user;
-		const { myinternship } = this.props.internship;
+		const { updated } = this.props.internship;
 
-			if (myinternship) {
-				Alert.alert('Success', 'Your internship have successful created');
-			}
-			// return this.props.navigation.navigate('Drawer', {
-			// 	screen: 'Home',
-			// });
+		if (updated === 'internship updated successful') {
+			Alert.alert('Success', 'Your internship have successful updated');
+		}
 		return (
 			<>
-				<NavHeader
-					navigateDrawer={() =>
-						this.props.navigation.dispatch(DrawerActions.openDrawer())
-					}
-					navigateRequests={() =>
-						this.props.navigation.navigate('Drawer', {
-							screen: 'Home',
-						})
-					}
-				/>
 				<Container>
 					<ScrollView>
 						<View style={styles.authForm}>
 							<Title style={{ color: Theme.COLORS.PRIMARY }}>
-								Create your internship record
+								Update internship record
 							</Title>
 							<Form>
 								<Item floatingLabel last>
@@ -172,7 +163,7 @@ class AddInternship extends Component {
 								</Item>
 								<Item floatingLabel last>
 									<Label style={{ color: Theme.COLORS.PLACEHOLDER }}>
-										startDate
+										Start date
 									</Label>
 									<Input
 										style={styles.input}
@@ -182,7 +173,7 @@ class AddInternship extends Component {
 								</Item>
 								<Item floatingLabel last>
 									<Label style={{ color: Theme.COLORS.PLACEHOLDER }}>
-										endDate
+										End date
 									</Label>
 									<Input
 										style={styles.input}
@@ -218,7 +209,7 @@ class AddInternship extends Component {
 									{loading ? <Spinner /> : null}
 									<Button block onPress={this.handleSubmit}>
 										<Text style={{ color: Theme.COLORS.DEFAULT }}>
-											Add your Internship
+											Update Internship
 										</Text>
 									</Button>
 								</View>
@@ -275,8 +266,8 @@ const styles = StyleSheet.create({
 	},
 });
 
-AddInternship.propTypes = {
-	addInternship: PropTypes.func.isRequired,
+UpdateInternship.propTypes = {
+	updateInternship: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired,
 	UI: PropTypes.object.isRequired,
 };
@@ -287,6 +278,6 @@ const mapStateToProps = state => ({
 	internship: state.data,
 });
 
-export default connect(mapStateToProps, { addInternship, getSupervisors })(
-	AddInternship
+export default connect(mapStateToProps, { updateInternship, getSupervisors })(
+	UpdateInternship
 );

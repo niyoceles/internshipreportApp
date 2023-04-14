@@ -11,15 +11,14 @@ import {
 import { Button, Form, Item, Input, Label, Title, Spinner } from 'native-base';
 import Theme from '../../constants/Theme';
 import { connect } from 'react-redux';
-import { signupUser } from '../../redux/actions';
+import { signupSupervisor } from '../../redux/actions';
 
-class Signup extends Component {
+class SignupSupervisor extends Component {
 	static navigationOptions = () => ({
 		headerShown: false,
 	});
 	state = {
 		names: '',
-		regNumber: '',
 		phoneNumber: '',
 		email: '',
 		password: '',
@@ -34,29 +33,25 @@ class Signup extends Component {
 	}
 
 	handleSubmit = async () => {
-		const { names, regNumber, phoneNumber, email, password } = this.state;
+		const { names, phoneNumber, email, password } = this.state;
 		if (names.length < 5) {
 			Alert.alert('Error', 'Please, names must be more than 5 Character');
 		}
 		if (email.length < 5) {
 			Alert.alert('Error', 'Please, Enter your email');
 		}
-		if (regNumber.length < 5) {
-			Alert.alert('Error', 'Please, Enter registration number');
-		}
 		if (password.length < 6) {
 			Alert.alert('Error', 'Enter password more than 6 Character');
 		} else {
 			//Save user
-			const newUserData = {
+			const supervisorData = {
 				names,
-				regNumber,
 				phoneNumber,
 				email,
 				password,
 			};
 
-			this.props.signupUser(newUserData);
+			this.props.signupSupervisor(supervisorData);
 			this.setState({ loading: true });
 			setInterval(() => {
 				this.setState({ loading: false });
@@ -83,7 +78,7 @@ class Signup extends Component {
 			loading,
 			errors,
 		} = this.state;
-		console.log('ERRORRR', errors.error);
+		// console.log('ERRORRR', errors.error);
 		return (
 			<ImageBackground
 				style={styles.image}
@@ -91,7 +86,7 @@ class Signup extends Component {
 			>
 				<View style={styles.authForm}>
 					<Title style={{ color: Theme.COLORS.DEFAULT }}>
-						Create student account
+						Create supervisor account
 					</Title>
 					{errors.error
 						? Alert.alert(
@@ -108,16 +103,6 @@ class Signup extends Component {
 								style={{ color: Theme.COLORS.MUTED }}
 								onChangeText={this.handleChange('names')}
 								value={names}
-							/>
-						</Item>
-						<Item floatingLabel last>
-							<Label style={{ color: Theme.COLORS.PLACEHOLDER }}>
-								Reg. Number
-							</Label>
-							<Input
-								style={{ color: Theme.COLORS.MUTED }}
-								onChangeText={this.handleChange('regNumber')}
-								value={regNumber}
 							/>
 						</Item>
 						<Item floatingLabel last>
@@ -202,8 +187,8 @@ const styles = StyleSheet.create({
 	},
 });
 
-Signup.propTypes = {
-	signupUser: PropTypes.func.isRequired,
+SignupSupervisor.propTypes = {
+	signupSupervisor: PropTypes.func.isRequired,
 	user: PropTypes.object.isRequired,
 	UI: PropTypes.object.isRequired,
 };
@@ -213,4 +198,4 @@ const mapStateToProps = state => ({
 	UI: state.UI,
 });
 
-export default connect(mapStateToProps, { signupUser })(Signup);
+export default connect(mapStateToProps, { signupSupervisor })(SignupSupervisor);

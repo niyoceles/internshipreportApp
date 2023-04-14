@@ -19,7 +19,7 @@ export default class AuthLoadingScreen extends React.Component {
       });
     }
     const userIdToken = await AsyncStorage.getItem('userIdToken');
-    console.log('Token on Loading:', userIdToken);
+    // console.log('Token on Loading:', userIdToken);
     this.props.navigation.navigate(userIdToken ? 'Drawer' : 'Auth');
   };
 

@@ -1,67 +1,51 @@
-import React, {Component, Fragment} from 'react';
-import {View} from 'react-native';
+import React, { Fragment } from 'react';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import {
-  Container,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Left,
-  Body,
-  Button,
-  Spinner,
-  Right,
-} from 'native-base';
-
-class ProfileComments extends Component {
-  render() {
-    const {lvcomments} = this.props;
-    return (
-      <Card>
-        {lvcomments ? (
-          lvcomments.map((comment, index) => {
-            const {body, createdAt, userImage, userName} = comment;
-            return (
-              <Fragment key={createdAt}>
-                <CardItem style={{elevation: 1}}>
-                  <View style={{flexDirection: 'column'}}>
-                    <Text style={{color: '#333', fontSize: 9}}>{userName}</Text>
-                    <Thumbnail
-                      source={{
-                        uri: `${userImage}`,
-                      }}
-                    />
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        fontStyle: 'italic',
-                        fontSize: 8,
-                        alignSelf: 'flex-end',
-                      }}>
-                      {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
-                    </Text>
-                    <Text style={{marginHorizontal: 15, fontSize: 12}}>
-                      {body}
-                    </Text>
-                  </View>
-                </CardItem>
-                {index !== lvcomments.length - 1 && <Text> </Text>}
-              </Fragment>
-            );
-          })
-        ) : (
-          <Spinner />
-        )}
-      </Card>
-    );
-  }
-}
+import { Card, CardItem, Thumbnail, Text, Spinner } from 'native-base';
+const ProfileComments = props => {
+	const { icomments } = props;
+	return (
+		<Card>
+			{icomments ? (
+				icomments.map((item, index) => {
+					const { comment, createdAt, commentor } = item;
+					return (
+						<Fragment key={createdAt}>
+							<CardItem style={{ elevation: 1 }}>
+								<View style={{ flexDirection: 'column', width: '25%' }}>
+									<Thumbnail source={require('../../assets/user.png')} />
+									<Text style={{ color: '#333', fontSize: 8 }}>
+										{commentor.names}
+									</Text>
+								</View>
+								<View style={{ flexDirection: 'column', width: '75%' }}>
+									<Text
+										style={{
+											fontStyle: 'italic',
+											fontSize: 8,
+											alignSelf: 'flex-end',
+										}}
+									>
+										{dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
+									</Text>
+									<Text style={{ marginHorizontal: 15, fontSize: 12 }}>
+										{comment}
+									</Text>
+								</View>
+							</CardItem>
+						</Fragment>
+					);
+				})
+			) : (
+				<Spinner />
+			)}
+		</Card>
+	);
+};
 
 ProfileComments.propTypes = {
-  // lvcomments: PropTypes.array.isRequired,
+	// icomments: PropTypes.array.isRequired,
 };
 
 export default ProfileComments;

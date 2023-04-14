@@ -24,7 +24,7 @@ const Stack = createStackNavigator();
 class App extends React.Component {
 	async componentDidMount() {
 		await AsyncStorage.getItem('userIdToken').then(token => {
-			console.log('token', token);
+			// console.log('token', token);
 			if (token) {
 				const decodedToken = jwtDecode(token);
 				if (decodedToken.exp * 1000 < Date.now()) {
